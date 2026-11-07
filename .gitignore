@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/for-github-engineering-projects/
-
 node_modules
 .next
 out
