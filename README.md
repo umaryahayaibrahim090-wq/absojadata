@@ -2,13 +2,13 @@
 
 ABSOJADATA is a modern VTU vending platform for Nigerian mobile data and airtime purchases.
 
-## Tech stack
+## Stack
 - Next.js 14
 - TypeScript
 - Prisma ORM
-- SQLite (for local dev)
-- JWT auth
-- Role-based customer/admin access
+- SQLite for local development
+- JWT authentication
+- Role-based access control
 
 ## Setup
 1. npm install
@@ -17,12 +17,9 @@ ABSOJADATA is a modern VTU vending platform for Nigerian mobile data and airtime
 4. npm run db:seed
 5. npm run dev
 
-## Environment
-Copy `.env.example` then set your secure values.
-
-## Default admin account
+## Admin login
 - Email: admin@absojadata.com
 - Password: Admin@123
 
-## Notes
-This starter implements a working local VTU platform with real server-side wallet logic and provider-ready APIs. Production providers and secrets should be configured only in server-side environment variables.
+## Secure credentials
+All production provider secrets should be placed in server-side environment variables only.

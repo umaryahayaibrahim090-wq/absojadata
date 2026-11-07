@@ -2,59 +2,60 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id                String   @id @default(cuid())
-  fullName          String
-  phoneNumber       String   @unique
-  email             String   @unique
-  passwordHash      String
-  role              String   @default("customer")
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  wallet            Wallet?
-  transactions      Transaction[]
-  walletLedger      WalletLedger[]
+  id           String         @id @default(cuid())
+  fullName     String
+  phoneNumber  String         @unique
+  email        String         @unique
+  passwordHash String
+  role         String         @default("customer")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  wallet       Wallet?
+  transactions Transaction[]
+  walletLedger WalletLedger[]
 }
 
 model Wallet {
-  id          String   @id @default(cuid())
-  userId      String   @unique
-  balance     Float    @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
-  ledger      WalletLedger[]
+  id        String        @id @default(cuid())
+  userId    String        @unique
+  balance   Float         @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  user      User          @relation(fields: [userId], references: [id])
+  ledger    WalletLedger[]
 }
 
 model WalletLedger {
-  id            String   @id @default(cuid())
-  walletId      String
-  userId        String
-  type          String   // CREDIT or DEBIT
-  amount        Float
-  description   String
-  reference     String   @unique
-  status        String   @default("SUCCESS")
-  createdAt     DateTime @default(now())
-  wallet        Wallet   @relation(fields: [walletId], references: [id])
-  user          User     @relation(fields: [userId], references: [id])
+  id          String   @id @default(cuid())
+  walletId    String
+  userId      String
+  type        String
+  amount      Float
+  description String
+  reference   String   @unique
+  status      String   @default("SUCCESS")
+  createdAt   DateTime @default(now())
+  wallet      Wallet   @relation(fields: [walletId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Transaction {
   id               String   @id @default(cuid())
   userId           String
-  type             String   // DATA, AIRTIME, WALLET_FUND
+  type             String
   network          String?
   phoneNumber      String?
   planName         String?
   amount           Float
   charges          Float    @default(0)
-  status           String   // SUCCESS, PENDING, FAILED
+  status           String
   reference        String   @unique
   providerResponse String?
   createdAt        DateTime @default(now())
@@ -62,28 +63,28 @@ model Transaction {
 }
 
 model ApiSetting {
-  id               String   @id @default(cuid())
-  providerName     String
-  providerType     String   // VTU, PAYMENT, WALLET
-  baseUrl          String
-  apiKey           String
-  secretKey        String?
-  isEnabled        Boolean  @default(true)
-  lastTestedAt     DateTime?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id           String    @id @default(cuid())
+  providerName String
+  providerType String
+  baseUrl      String
+  apiKey       String
+  secretKey    String?
+  isEnabled    Boolean   @default(true)
+  lastTestedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model NetworkPlan {
-  id            String   @id @default(cuid())
-  network       String
-  category      String
-  name          String
-  size          String
-  validity      String
-  price         Float
-  sellingPrice  Float
-  status        String   @default("active")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id           String   @id @default(cuid())
+  network      String
+  category     String
+  name         String
+  size         String
+  validity     String
+  price        Float
+  sellingPrice Float
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
