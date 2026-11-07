@@ -4,19 +4,20 @@ const baseUrl = process.env.VTU_API_BASE_URL || 'https://accessvtu.com.ng/api';
 
 /**
  * Server-side AccessVTU client. Never import this module into a client component.
- * The provider's PHP example uses `Authorization: Token <API_KEY>`.
+ * Their supplied example uses `Authorization: Token <API_KEY>`; the credential
+ * is read from the server-only VTU_API_SECRET environment variable.
  */
 export async function checkAccessVtuAccount() {
-  const apiKey = process.env.VTU_API_KEY;
-  if (!apiKey) {
-    throw new Error('AccessVTU is not configured: set VTU_API_KEY on the server.');
+  const apiSecret = process.env.VTU_API_SECRET;
+  if (!apiSecret) {
+    throw new Error('AccessVTU is not configured: set VTU_API_SECRET on the server.');
   }
 
-  const url = new URL('/user', baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`);
+  const url = `${baseUrl.replace(/\/+$/, '')}/user`;
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      Authorization: `Token ${apiKey}`,
+      Authorization: `Token ${apiSecret}`,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },

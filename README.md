@@ -1,25 +1,16 @@
 # ABSOJADATA
 
-ABSOJADATA is a modern VTU vending platform for Nigerian mobile data and airtime purchases.
-
-## Stack
-- Next.js 14
-- TypeScript
-- Prisma ORM
-- SQLite for local development
-- JWT authentication
-- Role-based access control
+ABSOJADATA is a Nigerian VTU platform project using Next.js, TypeScript, Prisma, and PostgreSQL configuration. It includes initial customer/admin UI and an AccessVTU server-side account connectivity check.
 
 ## Setup
-1. npm install
-2. npx prisma generate
-3. npx prisma db push
-4. npm run db:seed
-5. npm run dev
+1. Install Node.js and dependencies: `npm install`
+2. Copy `.env.example` to `.env` and set local PostgreSQL connection details and a long random `JWT_SECRET`.
+3. Set `ADMIN_EMAIL` and a strong `ADMIN_PASSWORD` in your local server environment.
+4. Generate the Prisma client and apply the schema: `npx prisma generate` and `npx prisma db push`.
+5. Run the app: `npm run dev`.
 
-## Admin login
-- Email: admin@absojadata.com
-- Password: Admin@123
+## Provider secrets
+Set `VTU_API_SECRET`, `PAYMENT_GATEWAY_SECRET_KEY`, and other credentials using local environment variables or your deployment provider's secret manager. Never commit actual secrets, share them in chat, or expose them through `NEXT_PUBLIC_*` variables. See `docs/provider-setup.md`.
 
-## Secure credentials
-All production provider secrets should be placed in server-side environment variables only.
+## Live service status
+The supplied AccessVTU snippet documents account lookup only. Product catalog, data/airtime purchase, transaction verification, and Paystack payment/webhook flows still require the providers' full API documentation and implementation/testing. Do not treat sample plan prices or mock flows as live or verified pricing.
